@@ -54,14 +54,14 @@ scores = [kmeans_score, dbscan_score, agg_score]
 plt.figure(figsize=(8,5))
 sns.barplot(x=algorithms, y=scores, palette="viridis")
 plt.ylabel("Silhouette Score")
-plt.title("Comparaison des algorithmes (Final)")
+plt.title("Comparaison des algorithmes")
 plt.savefig("comparison.png", bbox_inches='tight')
 plt.show()
 
 linked = linkage(X_sample[:200], method='ward')
 plt.figure(figsize=(12,6))
 dendrogram(linked)
-plt.title("Dendrogramme (Sample 200 pts)")
+plt.title("Dendrogramme ")
 plt.savefig("dendrogram.png", bbox_inches='tight')
 plt.show()
 
@@ -82,7 +82,6 @@ plt.title("Variables les plus importantes")
 plt.savefig("feature_importance.png", bbox_inches='tight')
 plt.show()
 
-print("تم بنجاح! هزي هاد التصاور الجداد وحطيهم في Overleaf.")
 
 importances = np.var(X_scaled, axis=0)
 features = X.columns
@@ -96,14 +95,11 @@ plt.tight_layout()
 plt.savefig("feature_importance1.png")
 plt.show()
 
-print("✅ Image 'feature_importance1.png' générée !")
 from sklearn.mixture import GaussianMixture
 from sklearn.metrics import davies_bouldin_score, calinski_harabasz_score
 
-
 gmm = GaussianMixture(n_components=3, random_state=42)
 gmm_labels = gmm.fit_predict(X_scaled)
-
 
 db_index = davies_bouldin_score(X_scaled, kmeans_labels)
 ch_index = calinski_harabasz_score(X_scaled, kmeans_labels)
@@ -111,12 +107,11 @@ ch_index = calinski_harabasz_score(X_scaled, kmeans_labels)
 print(f"Davies-Bouldin Index: {db_index:.4f}")
 print(f"Calinski-Harabasz Index: {ch_index:.4f}")
 
-
 pca = PCA(n_components=2)
 X_pca = pca.fit_transform(X_scaled)
 plt.figure(figsize=(8, 6))
 plt.scatter(X_pca[:, 0], X_pca[:, 1], c=gmm_labels, cmap='viridis', s=40)
-plt.title("Clustering avec Gaussian Mixture Model (GMM)")
+plt.title("Clustering avec Gaussian Mixture Model")
 plt.colorbar(label='Cluster')
 plt.savefig("gmm_clustering.png")
 plt.show()
